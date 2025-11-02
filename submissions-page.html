@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatisFacts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+</head>
+<body>
+    
+    <div class="top-nav">
+        <div class="nav-logo">
+            <a href="#">
+                <img src="assets/satisfacts-logo-2.png" alt="satisfacts-logo">
+            </a>
+        </div>
+
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+            <ul>
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="take-survey-page.html">Take Survey</a></li>
+                <li><a href="#" class="active">Submission</a></li>
+                <li><a href="contact-page.html">Contact</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="submissions" id="submissions">
+
+        <div class="submission-heading">
+            <h1>Past Submission</h1>
+            <p>Here are the surveys you've completed. You can view details and export your answers.</p>
+        </div>
+
+        <div class="submissions-area">
+            <div class="submission-card">
+                <div class="title-and-status">
+                    <div class="status">
+                        <span>Completed</span>
+                    </div>
+                    <div class="title">
+                        <h4>Client Satisfaction Measurement</h4>
+                    </div>
+                </div>
+
+                <div class="date-and-actions">
+                    <div class="date">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <p>10/02/2025</p>
+                    </div>
+                    <button class="export-pdf-btn">Generate PDF</button>
+                    <button class="export-excel-btn">Generate Excel</button>
+                    <button class="view-answer">View</button>
+
+                </div>
+            </div>  
+
+            
+        </div>
+     
+    </section>
+
+    
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="assets/valenzula-logo.png" alt="City Logo">
+        </div>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h4>City Government of Valenzuela</h4>
+                <p>The City Hall, MacArthur Highway, Karuhatan, Valenzuela City, Metro Manila</p>
+            </div>
+            <div class="footer-right">
+                <div class="footer-socials">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fas fa-globe"></i></a>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>|</span>
+                    <a href="#">Terms & Condition</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
