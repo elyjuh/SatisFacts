@@ -35,9 +35,9 @@ export default function AdminAccounts() {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "admin",
-    department: "IT Department",
-    status: "active",
+    role: "",
+    department: "",
+    status: "",
   });
 
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -48,7 +48,7 @@ export default function AdminAccounts() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest("#entriesDropdown")) setIsEntriesOpen(false);
-      if (!e.target.closest(".custom-dropdown")) setOpenDropdown(null);
+      if (!e.target.closest(".custom-dropdown") && !e.target.closest(".timeline-btn")) setOpenDropdown(null);
     };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
@@ -91,7 +91,7 @@ export default function AdminAccounts() {
     setUsers(prev => [...prev, newEntry]);
     setUserStatuses(prev => ({ ...prev, [newEntry.email]: newEntry.status }));
     setShowAddUserModal(false);
-    setNewUser({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "", role: "admin", department: "IT Department", status: "active" });
+    setNewUser({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "", role: "", department: "", status: "" });
     setErrors({});
   };
 
@@ -141,17 +141,7 @@ export default function AdminAccounts() {
           <button
             className="btn primary"
             onClick={() => {
-
-              setNewUser({
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-                role: "admin",
-                department: "IT Department",
-                status: "active",
-              });
+              setNewUser({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "", role: "", department: "", status: "" });
               setErrors({});
               setShowAddUserModal(true);
             }}
@@ -248,9 +238,14 @@ export default function AdminAccounts() {
       </div>
 
       {/* Add User Modal */}
-      <Modal title="Add New User" isOpen={showAddUserModal} onClose={() => setShowAddUserModal(false)}>
+      <Modal
+        title="Add New User"
+        isOpen={showAddUserModal}
+        onClose={() => setShowAddUserModal(false)}
+      >
         <form className="add-user-form" onSubmit={handleAddUser}>
           <div className="form-fields">
+            {/* First & Last Name */}
             <div className="form-group">
               <div className="form-field">
                 <label>First Name</label>
@@ -271,17 +266,16 @@ export default function AdminAccounts() {
                 <input type="email" name="email" placeholder="Enter email" value={newUser.email} onChange={handleInputChange} className={errors.email ? "input-error" : ""} />
                 {errors.email && <div className="error-text">{errors.email}</div>}
               </div>
-              <div className="form-field" id="roleDropdown">
+
+              {/* Role Dropdown */}
+              <div className="form-field custom-dropdown" id="roleDropdown">
                 <label>Role</label>
-                <button type="button" className={`timeline-btn ${openDropdown === "role" ? "active" : ""}`} onClick={() => setOpenDropdown(openDropdown === "role" ? null : "role")}>
-                  {newUser.role.charAt(0).toUpperCase() + newUser.role.slice(1)}
-                  <i className="fa-solid fa-chevron-down"></i>
+                <button type="button" className={`timeline-btn ${openDropdown === "role" ? "active" : ""} ${!newUser.role ? "placeholder" : ""}`} onClick={() => setOpenDropdown(openDropdown === "role" ? null : "role")}>
+                  {newUser.role ? newUser.role.charAt(0).toUpperCase() + newUser.role.slice(1) : "Select Role"}<i className="fa-solid fa-chevron-down"></i>
                 </button>
                 {openDropdown === "role" && (
                   <ul className="timeline-options" style={{ display: "block" }}>
-                    {["admin", "editor", "viewer"].map(opt => (
-                      <li key={opt} onClick={() => handleSelect("role", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>
-                    ))}
+                    {["admin", "editor", "viewer"].map((opt) => <li key={opt} onClick={() => handleSelect("role", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>)}
                   </ul>
                 )}
               </div>
@@ -289,31 +283,28 @@ export default function AdminAccounts() {
 
             {/* Department & Status */}
             <div className="form-group">
-              <div className="form-field" id="departmentDropdown">
+              {/* Department */}
+              <div className="form-field custom-dropdown" id="departmentDropdown">
                 <label>Department</label>
-                <button type="button" className={`timeline-btn ${openDropdown === "department" ? "active" : ""}`} onClick={() => setOpenDropdown(openDropdown === "department" ? null : "department")}>
-                  {newUser.department}
-                  <i className="fa-solid fa-chevron-down"></i>
+                <button type="button" className={`timeline-btn ${openDropdown === "department" ? "active" : ""} ${!newUser.department ? "placeholder" : ""}`} onClick={() => setOpenDropdown(openDropdown === "department" ? null : "department")}>
+                  {newUser.department || "Select Department"}<i className="fa-solid fa-chevron-down"></i>
                 </button>
                 {openDropdown === "department" && (
                   <ul className="timeline-options" style={{ display: "block" }}>
-                    {["IT Department", "Operations", "Analytics", "Records"].map(opt => (
-                      <li key={opt} onClick={() => handleSelect("department", opt)}>{opt}</li>
-                    ))}
+                    {["IT Department", "Operations", "Analytics", "Records"].map((opt) => <li key={opt} onClick={() => handleSelect("department", opt)}>{opt}</li>)}
                   </ul>
                 )}
               </div>
-              <div className="form-field" id="statusDropdown">
+
+              {/* Status */}
+              <div className="form-field custom-dropdown" id="statusDropdown">
                 <label>Status</label>
-                <button type="button" className={`timeline-btn ${openDropdown === "status" ? "active" : ""}`} onClick={() => setOpenDropdown(openDropdown === "status" ? null : "status")}>
-                  {newUser.status === "active" ? "Active" : "Inactive"}
-                  <i className="fa-solid fa-chevron-down"></i>
+                <button type="button" className={`timeline-btn ${openDropdown === "status" ? "active" : ""} ${!newUser.status ? "placeholder" : ""}`} onClick={() => setOpenDropdown(openDropdown === "status" ? null : "status")}>
+                  {newUser.status ? newUser.status.charAt(0).toUpperCase() + newUser.status.slice(1) : "Select Status"}<i className="fa-solid fa-chevron-down"></i>
                 </button>
                 {openDropdown === "status" && (
                   <ul className="timeline-options" style={{ display: "block" }}>
-                    {["active", "inactive"].map(opt => (
-                      <li key={opt} onClick={() => handleSelect("status", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>
-                    ))}
+                    {["active", "inactive"].map((opt) => <li key={opt} onClick={() => handleSelect("status", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>)}
                   </ul>
                 )}
               </div>
@@ -325,9 +316,7 @@ export default function AdminAccounts() {
                 <label>Password</label>
                 <div className="password-wrapper">
                   <input type={showPassword ? "text" : "password"} name="password" placeholder="Enter password" value={newUser.password} onChange={handleInputChange} className={errors.password ? "input-error" : ""} />
-                  <button type="button" className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
-                    <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
-                  </button>
+                  <button type="button" className="toggle-password" onClick={() => setShowPassword(!showPassword)}><i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i></button>
                 </div>
                 {errors.password && <div className="error-text">{errors.password}</div>}
               </div>
@@ -336,14 +325,11 @@ export default function AdminAccounts() {
                 <label>Confirm Password</label>
                 <div className="password-wrapper">
                   <input type={showConfirm ? "text" : "password"} name="confirmPassword" placeholder="Confirm password" value={newUser.confirmPassword} onChange={handleInputChange} className={errors.confirmPassword ? "input-error" : ""} />
-                  <button type="button" className="toggle-password" onClick={() => setShowConfirm(!showConfirm)}>
-                    <i className={`fa-solid ${showConfirm ? "fa-eye-slash" : "fa-eye"}`}></i>
-                  </button>
+                  <button type="button" className="toggle-password" onClick={() => setShowConfirm(!showConfirm)}><i className={`fa-solid ${showConfirm ? "fa-eye-slash" : "fa-eye"}`}></i></button>
                 </div>
                 {errors.confirmPassword && <div className="error-text">{errors.confirmPassword}</div>}
               </div>
             </div>
-
           </div>
 
           <div className="submit-btn">
@@ -374,35 +360,30 @@ export default function AdminAccounts() {
                 <label>Email</label>
                 <input type="email" name="email" value={newUser.email} onChange={handleInputChange} />
               </div>
-              <div className="form-field" id="roleDropdown">
+              {/* Role Dropdown */}
+              <div className="form-field custom-dropdown" id="roleDropdown">
                 <label>Role</label>
-                <button type="button" className={`timeline-btn ${openDropdown === "role" ? "active" : ""}`} onClick={() => setOpenDropdown(openDropdown === "role" ? null : "role")}>
-                  {newUser.role.charAt(0).toUpperCase() + newUser.role.slice(1)}
-                  <i className="fa-solid fa-chevron-down"></i>
+                <button type="button" className={`timeline-btn ${openDropdown === "role" ? "active" : ""} ${!newUser.role ? "placeholder" : ""}`} onClick={() => setOpenDropdown(openDropdown === "role" ? null : "role")}>
+                  {newUser.role ? newUser.role.charAt(0).toUpperCase() + newUser.role.slice(1) : "Select Role"}<i className="fa-solid fa-chevron-down"></i>
                 </button>
                 {openDropdown === "role" && (
                   <ul className="timeline-options" style={{ display: "block" }}>
-                    {["admin", "editor", "viewer"].map(opt => (
-                      <li key={opt} onClick={() => handleSelect("role", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>
-                    ))}
+                    {["admin", "editor", "viewer"].map((opt) => <li key={opt} onClick={() => handleSelect("role", opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</li>)}
                   </ul>
                 )}
               </div>
             </div>
 
-            {/* Department */}
+            {/* Department Dropdown */}
             <div className="form-group">
-              <div className="form-field" id="departmentDropdown">
+              <div className="form-field custom-dropdown" id="departmentDropdown">
                 <label>Department</label>
-                <button type="button" className={`timeline-btn ${openDropdown === "department" ? "active" : ""}`} onClick={() => setOpenDropdown(openDropdown === "department" ? null : "department")}>
-                  {newUser.department}
-                  <i className="fa-solid fa-chevron-down"></i>
+                <button type="button" className={`timeline-btn ${openDropdown === "department" ? "active" : ""} ${!newUser.department ? "placeholder" : ""}`} onClick={() => setOpenDropdown(openDropdown === "department" ? null : "department")}>
+                  {newUser.department || "Select Department"}<i className="fa-solid fa-chevron-down"></i>
                 </button>
                 {openDropdown === "department" && (
                   <ul className="timeline-options" style={{ display: "block" }}>
-                    {["IT Department", "Operations", "Analytics", "Records"].map(opt => (
-                      <li key={opt} onClick={() => handleSelect("department", opt)}>{opt}</li>
-                    ))}
+                    {["IT Department", "Operations", "Analytics", "Records"].map((opt) => <li key={opt} onClick={() => handleSelect("department", opt)}>{opt}</li>)}
                   </ul>
                 )}
               </div>
