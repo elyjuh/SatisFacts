@@ -80,6 +80,7 @@ html::-webkit-scrollbar-track {
         opacity: 1;
     }
 }
+
 .modal-header {
   background-color: #0f3c96;
   color: white;
@@ -113,7 +114,6 @@ html::-webkit-scrollbar-track {
     line-height: 1.7;
     font-size: 0.95rem; 
     counter-reset: section;
-    max-height: calc(90vh - 80px);
 }
 
 .modal-body p {
@@ -141,6 +141,10 @@ html::-webkit-scrollbar-track {
     list-style: disc !important;
     font-size: 0.93rem;
     margin-bottom: 1.2rem;
+}
+
+.modal-body li {
+    margin-left: 3rem;
 }
 
 .modal-body::-webkit-scrollbar {
@@ -2176,7 +2180,7 @@ input[type=number] {
         margin-left: 1.2rem;
         font-size: 0.85rem;
     }
-
+    
     section {
         padding: 4rem 4rem;
     }

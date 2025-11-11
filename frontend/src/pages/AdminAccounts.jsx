@@ -251,7 +251,6 @@ export default function AdminAccounts() {
       <Modal title="Add New User" isOpen={showAddUserModal} onClose={() => setShowAddUserModal(false)}>
         <form className="add-user-form" onSubmit={handleAddUser}>
           <div className="form-fields">
-            {/* First & Last Name */}
             <div className="form-group">
               <div className="form-field">
                 <label>First Name</label>
