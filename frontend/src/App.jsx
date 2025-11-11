@@ -46,7 +46,7 @@ export default function App() {
     setIsAdmin(admin);
     localStorage.setItem("isAdmin", admin ? "true" : "false");
     localStorage.removeItem("forgotStep");
-    // send admins to the admin overview route so AdminDashboard's nested routes match
+    
     if (admin) navigate('/admin/overview');
     else navigate('/');
   };

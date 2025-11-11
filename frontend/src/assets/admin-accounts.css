@@ -2,6 +2,16 @@ main {
     color: #1D1D1D;
 }
 
+.admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-dashboard main {
+    flex: 1;         
+    min-width: 0;    
+}
+
 .modal-header h2 {
     margin-top: 0;
 }
@@ -76,10 +86,10 @@ main {
     margin-bottom: 0.5rem;
 }
 
-.role-card.super-admin .role-label { background: #DA0000; color: var(--content-bg);}
-.role-card.admin .role-label { background: #27ACE7; color: var(--content-bg);}
-.role-card.editor .role-label { background: #58BD00; color: var(--content-bg);}
-.role-card.viewer .role-label { background: #6C7991; color: var(--content-bg);}
+.role-card.super-admin .role-label { background: #d13232; color: var(--content-bg);}
+.role-card.admin .role-label { background: #1a73e8; color: var(--content-bg);}
+.role-card.editor .role-label { background: #1a8a7f; color: var(--content-bg);}
+.role-card.viewer .role-label { background: #d4a017; color: var(--content-bg);}
 
 /* User Table */
 .user-table-wrapper {
@@ -91,7 +101,7 @@ main {
 
 .table-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 1rem;
     gap: 0.5rem;
 }
@@ -154,7 +164,7 @@ main {
 }
 
 input:checked + .slider {
-    background-color: #58BD00;
+    background-color: #1a8a7f;
 }
 
 input:checked + .slider:before {
@@ -170,6 +180,7 @@ input:checked + .slider:before {
 .status-label {
     margin-right: 0.5rem;
     font-size: 0.6rem;
+    font-weight: 500;
     vertical-align: middle;
     text-align: center;
     width: 60px;
@@ -185,17 +196,17 @@ input:checked + .slider:before {
 }
 
 .user-table .status.active { 
-    background: #DBFCE7; 
-    color: #008236; 
-    border: 1px solid #008236;  
+    background: #e6f5f1; 
+    color: #1a8a7f; 
+    border: 1px solid #1a8a7f;  
     border-radius: 12px; 
     text-align: center;
 }
 
 .user-table .status.inactive { 
-    color: #C62828; 
-    background-color: #ffd4d4; 
-    border: 1px solid #C62828;  
+    color: #d13232; 
+    background-color: #fde6e6; 
+    border: 1px solid #d13232;  
     border-radius: 12px; 
 }
 

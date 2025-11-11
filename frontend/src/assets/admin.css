@@ -254,7 +254,7 @@ h2, p {
     gap: 0.5rem;
 }
 
-.timeline-btn i.fa-regular.fa-calendar {
+.timeline-btn i {
     color: #01277E;
     font-size: 1rem;
 }

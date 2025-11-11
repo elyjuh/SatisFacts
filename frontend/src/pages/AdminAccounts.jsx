@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
-import "../assets/admin.css";
+import "../assets/admin-accounts.css";
 
 export default function AdminAccounts() {
   const [entriesCount, setEntriesCount] = useState(5);
