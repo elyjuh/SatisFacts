@@ -1,26 +1,20 @@
 import { useState, useEffect, useCallback } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import "./assets/style.css";
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop";
 import ConfirmationModal from "./components/ConfirmationModal";
 
-import Home from "./pages/Home";
-import TakeSurvey from "./pages/TakeSurvey";
-import Submissions from "./pages/Submissions";
-import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
 import EnterEmail from "./pages/EnterEmail";
 import ForgotPass from "./pages/ForgotPass";
 import ResetPassword from "./pages/ResetPass";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => localStorage.getItem("isAuthenticated") === "true");
@@ -60,7 +54,10 @@ export default function App() {
     setIsAdmin(false);
     setShowLogoutConfirm(false);
     localStorage.clear();
-  }, []);
+    
+    navigate("/"); 
+  }, [navigate]);
+
 
   return (
     <>
@@ -77,7 +74,7 @@ export default function App() {
       ) : isAdmin ? (
         <AdminDashboard handleLogout={handleLogout} />
       ) : (
-        <Dashboard handleLogout={handleLogout} confirmLogout={confirmLogout} isAuthenticated={isAuthenticated} />
+        <UserDashboard handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
       )}
 
       <ConfirmationModal
@@ -111,28 +108,4 @@ function AuthScreens({ showLogin, setShowLogin, forgotStep, setForgotStep, handl
   } else {
     return <ResetPassword goBack={() => setForgotStep(null)} />;
   }
-}
-
-// --- USER DASHBOARD ---
-function Dashboard({ handleLogout, confirmLogout, isAuthenticated }) {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuthenticated) navigate("/");
-  }, [isAuthenticated, navigate]);
-
-  return (
-    <>
-      <ScrollToTop />
-      <Navbar onLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/take-survey" element={<TakeSurvey />} />
-        <Route path="/submissions" element={<Submissions />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      <Footer />
-    </>
-  );
 }
